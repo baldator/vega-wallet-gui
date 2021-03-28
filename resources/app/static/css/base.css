@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+.page {
+    min-height: 100% !important;
+    height: 100%;
+}
+
+.left {
+    color: #fff;
+    float: left;
+    height: 100%;
+    overflow: auto;
+    padding: 15px;
+    width: 20%;
+    border-right: 1px solid white;
+}
+
+.dir {
+    cursor: pointer;
+    padding: 3px;
+}
+
+.dir .fa {
+    margin-right: 5px;
+}
+
+.right {
+    float: right;
+    height: 100%;
+    overflow: auto;
+    padding: 15px;
+    width: 80%;
+}
+
+.title {
+    font-size: 1.5em;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.panel {
+    background-color: #f1f1f1;
+    border: solid 1px #e1e1e1;
+    border-radius: 4px;
+    margin-top: 15px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat {
+    font-weight: bold;
+}
+
+.chart_title {
+    margin-bottom: 5px;
+}
+
+.login-form {
+    width: 60%;
+    margin: auto;
+}
+
+.login-logo {
+    width: 20%;
+    margin: auto;
+}
+
+select {
+    background-color: black;
+    color: white;
+    margin: 1% 0%;
+    border: none;
+    font-size: 1.3125rem;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    width: 100%;
+}
+
+.login-form {
+    position: absolute;
+    top: 50%;
+    transform: translate(20%, -60%);
+}
+
+#left-logo {
+    max-width: 5em;
+    margin: 5% auto 20% auto;
+}
+
+.menu-item {
+    cursor: pointer;
+}
+
+#current-wallet-box {
+    float: right;
+}

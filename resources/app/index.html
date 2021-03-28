@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/vega.css" />
+    <link rel="stylesheet" href="static/css/base.css" />
+    <link rel="stylesheet" href="static/lib/astiloader/astiloader.css">
+    <link rel="stylesheet" href="static/lib/astimodaler/astimodaler.css">
+    <link rel="stylesheet" href="static/lib/astinotifier/astinotifier.css">
+</head>
+
+<body>
+    <div id="main" class="page" style="display: none;">
+        <div class="left">
+            <div id="left-logo">
+                <svg class="vega-logo-anim" id="vegaLogoAnim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59 59"><style>.vega-logo-frame,#vegaLogoAnim:hover #frame0{display:none}</style><g id="frame1" class="vega-logo-frame"><set id="frame1Anim" attributeName="display" to="block" begin="0s;frame10Anim.end" dur="100ms"></set><path d="M22 18v-6h-5v10h5v-2zm0 19h5v5h-5zm5 5h5v5h-5zm5-5h5v5h-5zm5-25v10h5V12zM22 33v-6h-5v10h5v-2zm15-6v10h5V27zM22 22h5v5h-5zm20 0h5v5h-5z"></path></g><g id="frame2" class="vega-logo-frame"><set id="frame2Anim" attributeName="display" to="block" begin="frame1Anim.end" dur="100ms"></set><path d="M17 12h5v5h-5zm5 5h5v5h-5zm-5 5h5v5h-5zM27 32v-5h-5v10h5zM17 37h5v5h-5zm10 5h5v5h-5zm5-5h5v5h-5zm10-5h5v5h-5zM32 27h5v5h-5zm10-5v-5h-5v10h5zM32 7h5v5h-5z"></path></g><g id="frame3" class="vega-logo-frame"><set id="frame3Anim" attributeName="display" to="block" begin="frame2Anim.end" dur="100ms"></set><path d="M22 21v-9h-5v15h5v-3zm0 16h10v5H22zM17 31.9h5v5h-5zm20 0h5v5h-5z"></path><path d="M27 37h5v10h-5zM37 12v15h5V12zM12 26.9h5v5h-5zm20 0h5v5h-5z"></path></g><g id="frame4" class="vega-logo-frame"><set id="frame4Anim" attributeName="display" to="block" begin="frame3Anim.end" dur="100ms"></set><path d="M22 31v-9h-5v15h5v-3zm0 6h5v5h-5zM17 11.9h5v5h-5zm25 20h5v5h-5zM27 42h5v5h-5zM37 12v19.9h5V12zM12 16.9h5v5h-5zm20 15h5v5h-5z"></path></g><g id="frame5" class="vega-logo-frame"><set id="frame5Anim" attributeName="display" to="block" begin="frame4Anim.end" dur="100ms"></set><path d="M12 12h5v5h-5zm10 5h-5v10h5v-5zm0 10h5v5h-5zm-5 5h5v5h-5zm5 5h5v5h-5zm5 5v5h10v-5h-5zM37 32h5v5h-5zm5-5h5v5h-5zm0-10h-5v10h5v-5zM32 27h5v5h-5z"></path></g><g id="frame6" class="vega-logo-frame"><set id="frame6Anim" attributeName="display" to="block" begin="frame5Anim.end" dur="100ms"></set><path d="M27 42h5v5h-5zm5-5h5v5h-5zm0-10h5v5h-5zM12 27h5v5h-5zm25 5h5v5h-5zm0-10h5v5h-5zm5-10h5v5h-5zm-5 5h5v5h-5zM22 37h5v5h-5zm0-5h5v5h-5zM17 17h5v5h-5zm0 5h5v5h-5zm0-10h5v5h-5z"></path></g><g id="frame7" class="vega-logo-frame"><set id="frame7Anim" attributeName="display" to="block" begin="frame6Anim.end" dur="100ms"></set><path d="M12 12h5v5h-5zm10 5h-5v10h5v-5zm0 10h5v5h-5zm-5 5h5v5h-5zm5 5v5h5v5h5V37h-5zm20-5h5v5h-5zm0-10h-5v10h5v-5zM32 17h5v5h-5zm5-5h5v5h-5z"></path></g><g id="frame8" class="vega-logo-frame"><set id="frame8Anim" attributeName="display" to="block" begin="frame7Anim.end" dur="100ms"></set><path d="M17 12h5v5h-5zM27 22v-5h-5v10h5zM17 32v5h5V27h-5zm10 5v10h5v-5h5v-5h-5zm15 0h5v5h-5zM37 27h5v5h-5zm-5-5h5v5h-5zm10-5v-5h-5v10h5z"></path></g><g id="frame9" class="vega-logo-frame"><set id="frame9Anim" attributeName="display" to="block" begin="frame8Anim.end" dur="100ms"></set><path d="M17 7h5v5h-5zM27 22v-5h-5v10h5zM17 27h5v5h-5zm-5 5h5v5h-5zm10 5h5v5h-5zm5 5h5v5h-5zm5-5h5v5h-5zm10-5h5v5h-5zm-5-5h5v5h-5zm5-10v10h5V17zm-5-5h5v5h-5z"></path></g><g id="frame10" class="vega-logo-frame"><set id="frame10Anim" attributeName="display" to="block" begin="frame9Anim.end" dur="100ms"></set><path d="M22 12h5v5h-5zM17 22v10h5V17h-5zM12 37h5v5h-5zm15 5h5v5h-5zM42 32h-5v10h5v-5h5v-5zM27 27v5h5V22h-5zM37 17h5v5h-5zM37 7h5v5h-5z"></path></g><g id="frame0"><rect width="59" height="59" fill="#000"></rect><path d="M32.1811 42.9087H26.818V48.2718H32.1811V42.9087z" fill="#fff"></path><path d="M37.5452 37.5457H32.1821V42.9088H37.5452V37.5457z" fill="#fff"></path><path d="M48.2721 32.1826H42.9091V37.5457H48.2721V32.1826z" fill="#fff"></path><path d="M42.9086 10.7283H37.5455V32.1826H42.9086V10.7283z" fill="#fff"></path><path d="M26.8177 37.5457H21.4546V42.9088H26.8177V37.5457z" fill="#fff"></path><path d="M21.4542 10.7283H16.0911V37.5457H21.4542V10.7283z" fill="#fff"></path></g></svg>
+            </div>
+
+            <div class="menu-item" onclick="index.showManageKeys()"><span class="word">Manage keys</span></div>
+            <div class="menu-item" onclick="index.showServiceStatus()"><span class="word">Service status</span></div>
+            <div class="menu-item" onclick="index.showSignTransaction()"><span class="word">Sign transaction</span></div>
+            <div class="menu-item" onclick="index.showVerifyTransaction()"><span class="word">Verify signature</span></div>
+            <div class="menu-item" onclick="index.logout()"><span class="word">Logout</span></div>
+        </div>
+        <div class="right">
+            <div id="current-wallet-box">Current wallet: <strong><span id="current-wallet"></span></strong></div>
+            <div class="right-pane" id="manage-keys">
+                <form onsubmit="return false" class="signup">
+                    <h1>Manage keys</h1>
+                    <h2>Wallet details</h2>
+                    <div id="manage-keys-owner">
+                        Owner: <span id="manage-keys-owner-value"></span>
+                    </div>
+
+                    <h2>Keypairs</h2>
+                    <div id="manage-keys-keys">
+
+                    </div>
+                    <hr/>
+                    <button type="submit" onclick="wallet.addKeypair()">Add Keypair</button>
+                </form>
+            </div>
+            <div class="right-pane" id="service-status" style="display:none">
+                <h1>Service Status</h1>
+                <form onsubmit="return false" class="signup">
+                    <div id="service-status-conf-ok" class="configuration-status" style="display: none;">
+                        Configuration file exists. Configuration file path: <span id="service-status-conf-ok-path"></span>
+                        <button type="submit" onclick="config.initConfig(true)">Regenerate config file</button>
+                    </div>
+                    <div id="service-status-conf-nok" class="configuration-status" style="display: none;">
+                        Configuration file doesn't exists.
+                        <button type="submit" onclick="config.initConfig(false)">Generate config file</button>
+                    </div>
+                </form>
+            </div>
+            <div class="right-pane" id="sign-transaction" style="display:none">
+                <h1>Sign transaction</h1>
+                <p>Please enter the content you would like to sign and select a public key:</p>
+                <form onsubmit="index.signTransaction(); return false" class="signup">
+                    <div>
+                        <select name="uname" id="sign-transaction-pk" required>
+                        <option value="" disabled selected>Select a public key</option>
+                    </select>
+                    </div>
+
+                    <div>
+                        <textarea placeholder="Enter message" id="sign-transaction-message" required style="width: 100%; height: 10%;"></textarea>
+                    </div>
+
+                    <button type="submit" onclick="wallet.signTransaction()" style="margin-top: 3%">Sign transaction</button>
+                </form>
+                <div id="sign-transaction-response" style="display: none">
+                    <h2>Signed message</h2>
+                    <div id="sign-transaction-response-value"></div>
+                </div>
+            </div>
+            <div class="right-pane" id="verify-transaction" style="display: none;">
+                <h1>Verify signature</h1>
+                <p>Please enter the content you would like to verify, its signature and select a public key:</p>
+                <form onsubmit="index.verifyTransaction(); return false" class="signup">
+                    <div>
+                        <select name="uname" id="verify-transaction-pk" required>
+                        <option value="" disabled selected>Select a public key</option>
+                    </select>
+                    </div>
+
+                    <div>
+                        <textarea placeholder="Enter message" id="verify-transaction-message" required style="width: 100%; height: 10%;"></textarea>
+                    </div>
+
+                    <div>
+                        <textarea placeholder="Enter signature" id="verify-transaction-signature" required style="width: 100%; height: 10%;"></textarea>
+                    </div>
+
+                    <button type="submit" onclick="wallet.verifyTransaction()" style="margin-top: 3%">Sign transaction</button>
+                </form>
+                <div id="verify-transaction-response" style="display: none">
+                    <div id="verify-transaction-response-value"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    <div id="login" class="page">
+        <div class="container">
+            <div class="login-form">
+                <div class="login-logo">
+                    <svg class="vega-logo-anim" id="vegaLogoAnim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59 59"><style>.vega-logo-frame,#vegaLogoAnim:hover #frame0{display:none}</style><g id="frame1" class="vega-logo-frame"><set id="frame1Anim" attributeName="display" to="block" begin="0s;frame10Anim.end" dur="100ms"></set><path d="M22 18v-6h-5v10h5v-2zm0 19h5v5h-5zm5 5h5v5h-5zm5-5h5v5h-5zm5-25v10h5V12zM22 33v-6h-5v10h5v-2zm15-6v10h5V27zM22 22h5v5h-5zm20 0h5v5h-5z"></path></g><g id="frame2" class="vega-logo-frame"><set id="frame2Anim" attributeName="display" to="block" begin="frame1Anim.end" dur="100ms"></set><path d="M17 12h5v5h-5zm5 5h5v5h-5zm-5 5h5v5h-5zM27 32v-5h-5v10h5zM17 37h5v5h-5zm10 5h5v5h-5zm5-5h5v5h-5zm10-5h5v5h-5zM32 27h5v5h-5zm10-5v-5h-5v10h5zM32 7h5v5h-5z"></path></g><g id="frame3" class="vega-logo-frame"><set id="frame3Anim" attributeName="display" to="block" begin="frame2Anim.end" dur="100ms"></set><path d="M22 21v-9h-5v15h5v-3zm0 16h10v5H22zM17 31.9h5v5h-5zm20 0h5v5h-5z"></path><path d="M27 37h5v10h-5zM37 12v15h5V12zM12 26.9h5v5h-5zm20 0h5v5h-5z"></path></g><g id="frame4" class="vega-logo-frame"><set id="frame4Anim" attributeName="display" to="block" begin="frame3Anim.end" dur="100ms"></set><path d="M22 31v-9h-5v15h5v-3zm0 6h5v5h-5zM17 11.9h5v5h-5zm25 20h5v5h-5zM27 42h5v5h-5zM37 12v19.9h5V12zM12 16.9h5v5h-5zm20 15h5v5h-5z"></path></g><g id="frame5" class="vega-logo-frame"><set id="frame5Anim" attributeName="display" to="block" begin="frame4Anim.end" dur="100ms"></set><path d="M12 12h5v5h-5zm10 5h-5v10h5v-5zm0 10h5v5h-5zm-5 5h5v5h-5zm5 5h5v5h-5zm5 5v5h10v-5h-5zM37 32h5v5h-5zm5-5h5v5h-5zm0-10h-5v10h5v-5zM32 27h5v5h-5z"></path></g><g id="frame6" class="vega-logo-frame"><set id="frame6Anim" attributeName="display" to="block" begin="frame5Anim.end" dur="100ms"></set><path d="M27 42h5v5h-5zm5-5h5v5h-5zm0-10h5v5h-5zM12 27h5v5h-5zm25 5h5v5h-5zm0-10h5v5h-5zm5-10h5v5h-5zm-5 5h5v5h-5zM22 37h5v5h-5zm0-5h5v5h-5zM17 17h5v5h-5zm0 5h5v5h-5zm0-10h5v5h-5z"></path></g><g id="frame7" class="vega-logo-frame"><set id="frame7Anim" attributeName="display" to="block" begin="frame6Anim.end" dur="100ms"></set><path d="M12 12h5v5h-5zm10 5h-5v10h5v-5zm0 10h5v5h-5zm-5 5h5v5h-5zm5 5v5h5v5h5V37h-5zm20-5h5v5h-5zm0-10h-5v10h5v-5zM32 17h5v5h-5zm5-5h5v5h-5z"></path></g><g id="frame8" class="vega-logo-frame"><set id="frame8Anim" attributeName="display" to="block" begin="frame7Anim.end" dur="100ms"></set><path d="M17 12h5v5h-5zM27 22v-5h-5v10h5zM17 32v5h5V27h-5zm10 5v10h5v-5h5v-5h-5zm15 0h5v5h-5zM37 27h5v5h-5zm-5-5h5v5h-5zm10-5v-5h-5v10h5z"></path></g><g id="frame9" class="vega-logo-frame"><set id="frame9Anim" attributeName="display" to="block" begin="frame8Anim.end" dur="100ms"></set><path d="M17 7h5v5h-5zM27 22v-5h-5v10h5zM17 27h5v5h-5zm-5 5h5v5h-5zm10 5h5v5h-5zm5 5h5v5h-5zm5-5h5v5h-5zm10-5h5v5h-5zm-5-5h5v5h-5zm5-10v10h5V17zm-5-5h5v5h-5z"></path></g><g id="frame10" class="vega-logo-frame"><set id="frame10Anim" attributeName="display" to="block" begin="frame9Anim.end" dur="100ms"></set><path d="M22 12h5v5h-5zM17 22v10h5V17h-5zM12 37h5v5h-5zm15 5h5v5h-5zM42 32h-5v10h5v-5h5v-5zM27 27v5h5V22h-5zM37 17h5v5h-5zM37 7h5v5h-5z"></path></g><g id="frame0"><rect width="59" height="59" fill="#000"></rect><path d="M32.1811 42.9087H26.818V48.2718H32.1811V42.9087z" fill="#fff"></path><path d="M37.5452 37.5457H32.1821V42.9088H37.5452V37.5457z" fill="#fff"></path><path d="M48.2721 32.1826H42.9091V37.5457H48.2721V32.1826z" fill="#fff"></path><path d="M42.9086 10.7283H37.5455V32.1826H42.9086V10.7283z" fill="#fff"></path><path d="M26.8177 37.5457H21.4546V42.9088H26.8177V37.5457z" fill="#fff"></path><path d="M21.4542 10.7283H16.0911V37.5457H21.4542V10.7283z" fill="#fff"></path></g></svg>
+                </div>
+                <div class="signup">
+                    <form onsubmit="index.loginWalletAction(); return false">
+                        <div>
+                            <select name="uname" id="login-owners" required>
+                            <option value="" disabled selected>Select a wallet</option>
+                        </select>
+                        </div>
+
+                        <div>
+                            <input type="password" placeholder="Enter Passphrase" name="passphrase" id="login-passphrase" required>
+                        </div>
+
+                        <button type="submit" onclick="index.loginWalletAction()" style="margin-top: 3%">Login</button>
+                    </form>
+                </div>
+                <a href="javascript:void(0)" onclick="index.createWalletPage()">Create new wallet</a>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div id="create-wallet" class="page" style="display: none;">
+        <div class="container">
+            <div class="login-form">
+                <div class="login-logo">
+                    <svg class="vega-logo-anim" id="vegaLogoAnim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59 59"><style>.vega-logo-frame,#vegaLogoAnim:hover #frame0{display:none}</style><g id="frame1" class="vega-logo-frame"><set id="frame1Anim" attributeName="display" to="block" begin="0s;frame10Anim.end" dur="100ms"></set><path d="M22 18v-6h-5v10h5v-2zm0 19h5v5h-5zm5 5h5v5h-5zm5-5h5v5h-5zm5-25v10h5V12zM22 33v-6h-5v10h5v-2zm15-6v10h5V27zM22 22h5v5h-5zm20 0h5v5h-5z"></path></g><g id="frame2" class="vega-logo-frame"><set id="frame2Anim" attributeName="display" to="block" begin="frame1Anim.end" dur="100ms"></set><path d="M17 12h5v5h-5zm5 5h5v5h-5zm-5 5h5v5h-5zM27 32v-5h-5v10h5zM17 37h5v5h-5zm10 5h5v5h-5zm5-5h5v5h-5zm10-5h5v5h-5zM32 27h5v5h-5zm10-5v-5h-5v10h5zM32 7h5v5h-5z"></path></g><g id="frame3" class="vega-logo-frame"><set id="frame3Anim" attributeName="display" to="block" begin="frame2Anim.end" dur="100ms"></set><path d="M22 21v-9h-5v15h5v-3zm0 16h10v5H22zM17 31.9h5v5h-5zm20 0h5v5h-5z"></path><path d="M27 37h5v10h-5zM37 12v15h5V12zM12 26.9h5v5h-5zm20 0h5v5h-5z"></path></g><g id="frame4" class="vega-logo-frame"><set id="frame4Anim" attributeName="display" to="block" begin="frame3Anim.end" dur="100ms"></set><path d="M22 31v-9h-5v15h5v-3zm0 6h5v5h-5zM17 11.9h5v5h-5zm25 20h5v5h-5zM27 42h5v5h-5zM37 12v19.9h5V12zM12 16.9h5v5h-5zm20 15h5v5h-5z"></path></g><g id="frame5" class="vega-logo-frame"><set id="frame5Anim" attributeName="display" to="block" begin="frame4Anim.end" dur="100ms"></set><path d="M12 12h5v5h-5zm10 5h-5v10h5v-5zm0 10h5v5h-5zm-5 5h5v5h-5zm5 5h5v5h-5zm5 5v5h10v-5h-5zM37 32h5v5h-5zm5-5h5v5h-5zm0-10h-5v10h5v-5zM32 27h5v5h-5z"></path></g><g id="frame6" class="vega-logo-frame"><set id="frame6Anim" attributeName="display" to="block" begin="frame5Anim.end" dur="100ms"></set><path d="M27 42h5v5h-5zm5-5h5v5h-5zm0-10h5v5h-5zM12 27h5v5h-5zm25 5h5v5h-5zm0-10h5v5h-5zm5-10h5v5h-5zm-5 5h5v5h-5zM22 37h5v5h-5zm0-5h5v5h-5zM17 17h5v5h-5zm0 5h5v5h-5zm0-10h5v5h-5z"></path></g><g id="frame7" class="vega-logo-frame"><set id="frame7Anim" attributeName="display" to="block" begin="frame6Anim.end" dur="100ms"></set><path d="M12 12h5v5h-5zm10 5h-5v10h5v-5zm0 10h5v5h-5zm-5 5h5v5h-5zm5 5v5h5v5h5V37h-5zm20-5h5v5h-5zm0-10h-5v10h5v-5zM32 17h5v5h-5zm5-5h5v5h-5z"></path></g><g id="frame8" class="vega-logo-frame"><set id="frame8Anim" attributeName="display" to="block" begin="frame7Anim.end" dur="100ms"></set><path d="M17 12h5v5h-5zM27 22v-5h-5v10h5zM17 32v5h5V27h-5zm10 5v10h5v-5h5v-5h-5zm15 0h5v5h-5zM37 27h5v5h-5zm-5-5h5v5h-5zm10-5v-5h-5v10h5z"></path></g><g id="frame9" class="vega-logo-frame"><set id="frame9Anim" attributeName="display" to="block" begin="frame8Anim.end" dur="100ms"></set><path d="M17 7h5v5h-5zM27 22v-5h-5v10h5zM17 27h5v5h-5zm-5 5h5v5h-5zm10 5h5v5h-5zm5 5h5v5h-5zm5-5h5v5h-5zm10-5h5v5h-5zm-5-5h5v5h-5zm5-10v10h5V17zm-5-5h5v5h-5z"></path></g><g id="frame10" class="vega-logo-frame"><set id="frame10Anim" attributeName="display" to="block" begin="frame9Anim.end" dur="100ms"></set><path d="M22 12h5v5h-5zM17 22v10h5V17h-5zM12 37h5v5h-5zm15 5h5v5h-5zM42 32h-5v10h5v-5h5v-5zM27 27v5h5V22h-5zM37 17h5v5h-5zM37 7h5v5h-5z"></path></g><g id="frame0"><rect width="59" height="59" fill="#000"></rect><path d="M32.1811 42.9087H26.818V48.2718H32.1811V42.9087z" fill="#fff"></path><path d="M37.5452 37.5457H32.1821V42.9088H37.5452V37.5457z" fill="#fff"></path><path d="M48.2721 32.1826H42.9091V37.5457H48.2721V32.1826z" fill="#fff"></path><path d="M42.9086 10.7283H37.5455V32.1826H42.9086V10.7283z" fill="#fff"></path><path d="M26.8177 37.5457H21.4546V42.9088H26.8177V37.5457z" fill="#fff"></path><path d="M21.4542 10.7283H16.0911V37.5457H21.4542V10.7283z" fill="#fff"></path></g></svg>
+                </div>
+                <div class="signup">
+                    <form onsubmit="index.createWalletAction(); return false">
+                        <div>
+                            <input type="text" placeholder="Enter owner" name="uname" id="create-owner" required>
+                        </div>
+                        <div>
+                            <input type="password" placeholder="Enter Passphrase" name="passphrase" id="create-passphrase" required>
+                        </div>
+                        <div>
+                            <input type="password" placeholder="Repeat Passphrase" name="passphrase-repeat" id="create-passphrase-bis" required>
+                        </div>
+
+                        <button type="submit" onclick="wallet.createWallet()" style="margin-top: 3%">Create</button>
+                    </form>
+                </div>
+                <a href="javascript:void(0)" onclick="index.loginWalletPage()">Login to an existing wallet</a>
+            </div>
+        </div>
+    </div>
+    <script src="static/js/index.js"></script>
+    <script src="static/js/wallet.js"></script>
+    <script src="static/js/config.js"></script>
+    <script src="static/lib/astiloader/astiloader.js"></script>
+    <script src="static/lib/astimodaler/astimodaler.js"></script>
+    <script src="static/lib/astinotifier/astinotifier.js"></script>
+    <script type="text/javascript">
+        index.init();
+    </script>
+</body>
+
+</html>

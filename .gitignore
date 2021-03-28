@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+.idea/
+bind*
+output
+windows.syso
+bind_windows_amd64.go
+logs.txt
