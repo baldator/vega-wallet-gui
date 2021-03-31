@@ -1,5 +1,7 @@
 let config = {
-    getConfig: function() {
+    vegaConsoleUrl: "https://testnet.vega.trading/",
+    walletConfig: "",
+    getConfig: async function() {
         // Create message
         let message = { "name": "getconfig" };
 
@@ -18,6 +20,8 @@ let config = {
             }
 
             index.showConfiguration(message.payload);
+            config.walletConfig = message.payload.Config
+
         })
     },
     initConfig: function(force = false) {

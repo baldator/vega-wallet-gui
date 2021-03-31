@@ -36,42 +36,51 @@ type getConfigResponse struct {
 	Config     Config `json: "config"`
 }
 
-func getConfig() (getConfigResponse, error) {
+func main() {
 	var configResp getConfigResponse
 	rootPath := fsutil.DefaultVegaDir()
 
 	if ok, err := fsutil.PathExists(rootPath); !ok {
 		if _, ok := err.(*fsutil.PathNotFound); !ok {
-			return configResp, fmt.Errorf("invalid root directory path: %v", err)
+			return
 		}
 		// create the folder
 		if err := fsutil.EnsureDir(rootPath); err != nil {
-			return configResp, fmt.Errorf("error creating root directory: %v", err)
+			return
 		}
 	}
 
 	if err := wallet.EnsureBaseFolder(rootPath); err != nil {
-		return configResp, fmt.Errorf("unable to initialization root folder: %v", err)
+		return
 	}
 	configPath := rootPath + "/" + configFile
 	configResp.Path = configPath
 	configResp.PathExists = true
 
 	if ok, err := fsutil.PathExists(rootPath); ok {
+		fmt.Println("1")
 		if _, ok := err.(*fsutil.PathNotFound); ok {
+			fmt.Println("2")
 			configResp.PathExists = false
 		} else {
-			confFile, err := ioutil.ReadFile(configPath)
+			fmt.Println("3")
+			confFile, err := ioutil.ReadFile(configPath) // just pass the file name
+			fmt.Println("4")
 			if err != nil {
 				fmt.Print(err)
 			}
 			config := Config{}
+			fmt.Println("5")
+			fmt.Printf("aaa: %v\n", confFile)
 			toml.Unmarshal(confFile, &config)
 			configResp.Config = config
 		}
+	} else {
+
+		fmt.Println("nok")
 	}
 
-	return configResp, nil
+	fmt.Printf("%+v", configResp)
 }
 
 func initConfig(force bool, genRsaKey bool) error {

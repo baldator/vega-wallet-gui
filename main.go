@@ -138,7 +138,7 @@ func main() {
 				BackgroundColor: astikit.StrPtr("#333"),
 				Center:          astikit.BoolPtr(true),
 				Height:          astikit.IntPtr(700),
-				Width:           astikit.IntPtr(700),
+				Width:           astikit.IntPtr(900),
 			},
 		}},
 	}); err != nil {

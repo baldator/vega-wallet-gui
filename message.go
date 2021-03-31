@@ -85,8 +85,6 @@ func handleMessages(_ *astilectron.Window, m bootstrap.MessageIn) (payload inter
 			payload = err.Error()
 			return
 		}
-
-		return
 	case "verifytransaction":
 		var sign verifyTransactionRequest
 		if len(m.Payload) > 0 {
@@ -105,6 +103,7 @@ func handleMessages(_ *astilectron.Window, m bootstrap.MessageIn) (payload inter
 			payload = err.Error()
 			return
 		}
+
 	}
 
 	return

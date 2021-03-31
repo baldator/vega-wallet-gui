@@ -22,7 +22,19 @@ let index = {
             // Listen
             index.listen();
             index.checkLogin();
+            config.getConfig();
+            // Update service status every 5 seconds
+            var intervalId = window.setInterval(function() {
+                wallet.getServiceStatus();
+            }, 5000);
+
         })
+    },
+    openBrowser: function(url) {
+        require("electron").shell.openExternal(url);
+    },
+    openVegaConsole: function() {
+        this.openBrowser(config.vegaConsoleUrl);
     },
     hidePages: function() {
         [].forEach.call(document.querySelectorAll('.page'), function(el) {
@@ -46,10 +58,13 @@ let index = {
         this.hideRightPane();
         document.getElementById("manage-keys").style.display = "block";
     },
+    showCheckBalance: function() {
+        this.hideRightPane();
+        document.getElementById("check-balance").style.display = "block";
+    },
     showServiceStatus: function() {
         this.hideRightPane();
         document.getElementById("service-status").style.display = "block";
-        config.getConfig()
     },
     showSignTransaction: function() {
         this.hideRightPane();
@@ -91,12 +106,12 @@ let index = {
     },
     appendKeyPair: function(keypair) {
         let div = document.createElement("div");
-        div.innerHTML = `<div>Public key: ${keypair.pub}</div><div>Private key: ${keypair.priv}</div>
-        <div>Metadata: ${JSON.stringify(keypair.meta)}</div><div>Tainted: ${keypair.tainted}</div><div>Algorithm: ${keypair.algo}</div>`
+        div.innerHTML = `<div class="manage-key-value">Public key: ${keypair.pub}</div><div class="manage-key-value">Private key: ${keypair.priv}</div>
+        <div class="manage-key-value">Metadata: ${JSON.stringify(keypair.meta)}</div><div class="manage-key-value">Tainted: ${keypair.tainted}</div><div class="manage-key-value">Algorithm: ${keypair.algo}</div>`
         console.log("tainted: " + keypair.tainted)
         console.log(typeof keypair.tainted)
         if (keypair.tainted == "false" || keypair.tainted == false) {
-            div.innerHTML += `<div><button type="submit" onclick="wallet.taintKeypair('${keypair.pub}')">Taint</button></div>`
+            div.innerHTML += `<br><div><button type="submit" onclick="wallet.taintKeypair('${keypair.pub}')">Taint</button></div>`
         }
         div.innerHTML += `<hr/>`
         document.getElementById("manage-keys-keys").appendChild(div)
@@ -109,20 +124,28 @@ let index = {
             this.appendKeyPair(wallet.Keypairs[i]);
         }
 
-        // add keypairs in sign transaction dropdown
+        document.getElementById("sign-transaction-pk").innerHTML = '<option value="" disabled selected>Select a public key</option>'
+        document.getElementById("verify-transaction-pk").innerHTML = '<option value="" disabled selected>Select a public key</option>'
+        document.getElementById("check-balance-pk").innerHTML = '<option value="" disabled selected>Select a public key</option>'
+
+        // add keypairs in select dropdown
         for (let i = 0; i < wallet.Keypairs.length; i++) {
             let option = document.createElement("option");
             option.value = wallet.Keypairs[i].pub;
             option.text = wallet.Keypairs[i].pub;
             document.getElementById("sign-transaction-pk").appendChild(option)
         }
-
-        // add keypairs in verify transaction dropdown
         for (let i = 0; i < wallet.Keypairs.length; i++) {
             let option = document.createElement("option");
             option.value = wallet.Keypairs[i].pub;
             option.text = wallet.Keypairs[i].pub;
             document.getElementById("verify-transaction-pk").appendChild(option)
+        }
+        for (let i = 0; i < wallet.Keypairs.length; i++) {
+            let option = document.createElement("option");
+            option.value = wallet.Keypairs[i].pub;
+            option.text = wallet.Keypairs[i].pub;
+            document.getElementById("check-balance-pk").appendChild(option)
         }
 
     },
@@ -138,9 +161,45 @@ let index = {
         this.hideConfigurationStatus();
         if (message.PathExists) {
             document.getElementById("service-status-conf-ok").style.display = "block";
-            document.getElementById("service-status-conf-ok-path").value = message.path;
+            document.getElementById("service-status-conf-ok-path").innerHTML = message.path;
         } else {
             document.getElementById("service-status-conf-nok").style.display = "block";
+        }
+    },
+    showPositions: async function(accounts) {
+        document.getElementById("check-balance-result-data").innerHTML = "";
+        document.getElementById("check-balance-result").style.display = "block";
+        for (let i = 0; i < accounts.accounts.length; i++) {
+            let accountReadable = await wallet.getAssetValue(accounts.accounts[i].balance, accounts.accounts[i].asset);
+            let divRow = document.createElement("div");
+            divRow.classList.add("divTableRow");
+            let divName = document.createElement("div");
+            divName.classList.add("divTableCell");
+            divName.innerHTML = accountReadable.name;
+            divRow.appendChild(divName);
+            let divValue = document.createElement("div");
+            divValue.classList.add("divTableCell");
+            divValue.innerHTML = accountReadable.value;
+            divRow.appendChild(divValue);
+
+            document.getElementById("check-balance-result-data").appendChild(divRow);
+        }
+
+        if (accounts.accounts.length == 0) {
+            document.getElementById("check-balance-result").style.display = "none";
+            document.getElementById("check-balance-result-empty").style.display = "block";
+        } else {
+            document.getElementById("check-balance-result-empty").style.display = "none";
+        }
+    },
+    updateServiceStatus: function(status) {
+        [].forEach.call(document.querySelectorAll('.service-status'), function(el) {
+            el.style.display = 'none';
+        });
+        if (status) {
+            document.getElementById("service-status-ok").style.display = "block";
+        } else {
+            document.getElementById("service-status-nok").style.display = "block";
         }
     },
     logout: function() {

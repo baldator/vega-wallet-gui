@@ -197,4 +197,45 @@ let wallet = {
             asticode.notifier.info("Message verfied successfully.");
         })
     },
+    checkBalance: async function() {
+        asticode.loader.show();
+        let pub = document.getElementById("check-balance-pk").value;
+        if (pub == null || pub == "") {
+            asticode.notifier.error("Public key is required");
+        }
+
+        let response = await fetch('https://lb.testnet.vega.xyz/parties/' + pub + '/accounts');
+        const accounts = await response.json(); //extract JSON from the http response
+
+        index.showPositions(accounts);
+        asticode.loader.hide();
+    },
+    getAssetValue: async function(balance, asset) {
+        let assetsResp = await fetch('https://lb.testnet.vega.xyz/assets');
+        const assetsVal = await assetsResp.json(); //extract JSON from the http response
+        for (let i = 0; i < assetsVal.assets.length; i++) {
+            if (assetsVal.assets[i].id == asset) {
+                let val = balance / (10 ** assetsVal.assets[i].decimals)
+                return {
+                    "name": assetsVal.assets[i].name,
+                    "value": val,
+                }
+            }
+        }
+        return null
+    },
+    getServiceStatus: async function() {
+        url = "http://" + config.walletConfig.Host + ":" + config.walletConfig.Port + "/api/v1/status"
+        fetch(url)
+            .then(function(response) {
+                response.json().then(function(resp) {
+                    index.updateServiceStatus(resp.success);
+                });
+            }).catch(function() {
+                index.updateServiceStatus(false)
+            });
+
+
+    }
+
 };

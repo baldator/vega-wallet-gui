@@ -1586,29 +1586,29 @@ template {
 
 @font-face {
     font-family: "Helvetica Neue";
-    src: url(/cc2300810af4aeee5f8812a13c239adbf702b52e/bbc04/fonts/5664093/522972a6-5867-47ae-82fc-a7cf9bd5d4d4.eot#iefix);
-    src: url(/cc2300810af4aeee5f8812a13c239adbf702b52e/bbc04/fonts/5664093/522972a6-5867-47ae-82fc-a7cf9bd5d4d4.eot#iefix) format("eot"), url(/1798b2e0463a8bfb1134ffc040628f0ef33172e2/13764/fonts/5664093/08b57253-2e0d-4c12-9c57-107f6c67bc49.woff2) format("woff2"), url(/49b27a469fbbda3c97d76305d83a49ce7794e4ff/637b3/fonts/5664093/08edde9d-c27b-4731-a27f-d6cd9b01cd06.woff) format("woff"), url(/cc3bafc4710c4d96c2203a0f2b0eabd93f0710df/0b782/fonts/5664093/8f4a1705-214a-4dd0-80b8-72252c37e688.ttf) format("truetype");
+    src: url(522972a6-5867-47ae-82fc-a7cf9bd5d4d4.eot#iefix);
+    src: url(522972a6-5867-47ae-82fc-a7cf9bd5d4d4.eot#iefix) format("eot"), url(08b57253-2e0d-4c12-9c57-107f6c67bc49.woff2) format("woff2"), url(08edde9d-c27b-4731-a27f-d6cd9b01cd06.woff) format("woff"), url(8f4a1705-214a-4dd0-80b8-72252c37e688.ttf) format("truetype");
     font-display: swap
 }
 
 @font-face {
     font-family: 'Helvetica Neue';
-    src: url(/b0582cf6afb9d203a537a8feafe6e9c13cf32b65/2b504/fonts/3adeb0_0_0.eot);
-    src: url(/b0582cf6afb9d203a537a8feafe6e9c13cf32b65/2b504/fonts/3adeb0_0_0.eot#iefix) format("embedded-opentype"), url(/85cafc50d8cd762b6d93e9c5e7af85e934aacb24/a1b29/fonts/3adeb0_0_0.woff2) format("woff2"), url(/1898e9592bd36300f799c84e42128f3991f9201e/4fc44/fonts/3adeb0_0_0.woff) format("woff"), url(/1deaccca5d414e398821e1572651adc17e3e0f82/92889/fonts/3adeb0_0_0.ttf) format("truetype");
+    src: url(3adeb0_0_0.eot);
+    src: url(3adeb0_0_0.eot#iefix) format("embedded-opentype"), url(3adeb0_0_0.woff2) format("woff2"), url(3adeb0_0_0.woff) format("woff"), url(3adeb0_0_0.ttf) format("truetype");
     font-weight: 700;
     font-display: swap
 }
 
 @font-face {
     font-family: "Neue Pixel Grotesk Regular";
-    src: url(/8343978c1dd73a55fb9971d149a20526da358f39/d496a/fonts/neuepixelgrotesk_regular.woff) format("woff");
+    src: url(neuepixelgrotesk_regular.woff) format("woff");
     font-display: swap
 }
 
 @font-face {
     font-family: Vega;
-    src: url(/3b5881a49eca02a1d6b9c8c20d161d0de32669f9/8b33f/fonts/vega.eot);
-    src: url(/3b5881a49eca02a1d6b9c8c20d161d0de32669f9/8b33f/fonts/vega.eot#iefix) format("embedded-opentype"), url(/504308539ac567ffba7a7e1b339f1e538e2a933c/648c1/fonts/vega.ttf) format("truetype"), url(/0beacf740154ab357d45ee2679f21e6f4e95a288/ed838/fonts/vega.woff) format("woff"), url(/bab10fee90d9a8e22981752e0e8a28d17fbeb66c/31675/fonts/vega.svg#vega) format("svg");
+    src: url(vega.eot);
+    src: url(vega.eot#iefix) format("embedded-opentype"), url(vega.ttf) format("truetype"), url(vega.woff) format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: block;

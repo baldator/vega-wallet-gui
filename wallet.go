@@ -1,15 +1,16 @@
 package main
 
 import (
+	"encoding/base64"
 	"errors"
 	"fmt"
-	"encoding/base64"
 	"io/ioutil"
 	"strings"
 
 	"code.vegaprotocol.io/go-wallet/fsutil"
 	"code.vegaprotocol.io/go-wallet/wallet"
 	"code.vegaprotocol.io/go-wallet/wallet/crypto"
+	"google.golang.org/grpc"
 )
 
 type createWalletRequest struct {
@@ -61,6 +62,14 @@ type verifyTransactionRequest struct {
 
 type verifyTransactionResponse struct {
 	Verified bool `json:"verified"`
+}
+
+type checkBalanceRequest struct {
+	Owner string `json: "owner"`
+}
+
+type checkBalanceResponse struct {
+	Owner string `json: "owner"`
 }
 
 type Owners struct {
@@ -174,7 +183,6 @@ func genWallet(walletOwner string, passphrase string, metas string) (wallet.Wall
 	return *walletOutput, nil
 }
 
-
 func createWallet(owner string, passphrase string) (createWalletResponse, error) {
 	var walletResp createWalletResponse
 
@@ -266,7 +274,6 @@ func getWallet(owner string, passphrase string) (getWalletResponse, error) {
 
 	return walletResp, nil
 }
-
 
 func signTransaction(owner string, passphrase string, pub string, message string) (signTransactionResponse, error) {
 	var walletResp signTransactionResponse
@@ -422,4 +429,24 @@ func verifyTransaction(owner string, passphrase string, pub string, message stri
 	walletResp.Verified = verified
 
 	return walletResp, nil
+}
+
+func checkBalance(owner string, nodeURLGrpc string) (checkBalanceResponse, error) {
+	var balance checkBalanceResponse
+
+	if len(owner) <= 0 {
+		return balance, errors.New("wallet name is required")
+	}
+
+	if len(nodeURLGrpc) == 0 {
+		return balance, errors.New("gRPC URL is required")
+	}
+
+	conn, err := grpc.Dial(nodeURLGrpc, grpc.WithInsecure())
+	if err != nil {
+		return balance, err
+	}
+	defer conn.Close()
+
+	return balance, nil
 }
