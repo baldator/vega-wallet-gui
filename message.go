@@ -103,7 +103,11 @@ func handleMessages(_ *astilectron.Window, m bootstrap.MessageIn) (payload inter
 			payload = err.Error()
 			return
 		}
-
+	case "startService":
+		if payload, err = startService(); err != nil {
+			payload = err.Error()
+			return
+		}
 	}
 
 	return

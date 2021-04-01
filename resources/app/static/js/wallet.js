@@ -234,8 +234,28 @@ let wallet = {
             }).catch(function() {
                 index.updateServiceStatus(false)
             });
+    },
+    startService: function() {
+        // Create message
+        let message = { "name": "startService" };
 
+        // Send message
+        asticode.loader.show();
+        astilectron.sendMessage(message, function(message) {
+            // Init
+            asticode.loader.hide();
 
-    }
+            console.log(message);
+
+            // Check error
+            if (message.name === "error") {
+                asticode.notifier.error(message.payload);
+                return
+            } else {
+                asticode.notifier.info("Service started successfully");
+            }
+
+        })
+    },
 
 };

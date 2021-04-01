@@ -1,15 +1,19 @@
 package main
 
 import (
+	"context"
 	"encoding/base64"
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"net/http"
+	"net/http/httputil"
 	"strings"
 
 	"code.vegaprotocol.io/go-wallet/fsutil"
 	"code.vegaprotocol.io/go-wallet/wallet"
 	"code.vegaprotocol.io/go-wallet/wallet/crypto"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
 
@@ -75,6 +79,10 @@ type checkBalanceResponse struct {
 type Owners struct {
 	Owners []string `json:"owners"`
 	Path   string   `json:"path"`
+}
+
+type startServiceResponse struct {
+	Status bool `json:"status"`
 }
 
 func getWallets() (Owners, error) {
@@ -449,4 +457,92 @@ func checkBalance(owner string, nodeURLGrpc string) (checkBalanceResponse, error
 	defer conn.Close()
 
 	return balance, nil
+}
+
+type consoleProxy struct {
+	log        *zap.Logger
+	port       int
+	consoleURL string
+	nodeURL    string
+	s          *http.Server
+	version    string
+}
+
+func newConsoleProxy(log *zap.Logger, port int, consoleURL, nodeURL, version string) *consoleProxy {
+	return &consoleProxy{
+		log:        log,
+		port:       port,
+		consoleURL: consoleURL,
+		nodeURL:    nodeURL,
+		version:    version,
+	}
+}
+
+func (c *consoleProxy) Start() error {
+	proxy := httputil.ReverseProxy{
+		Director: func(req *http.Request) {
+			req.Header.Set("Referer", c.nodeURL)
+			req.Header.Set(
+				"User-Agent",
+				fmt.Sprintf("%v VegaWallet/%v", req.Header.Get("User-Agent"), c.version),
+			)
+			req.URL.Scheme = "https"
+			req.URL.Host = c.consoleURL
+			req.Host = c.consoleURL
+		},
+	}
+	consoleProxyAddr := fmt.Sprintf("localhost:%v", c.port)
+	c.s = &http.Server{
+		Addr:    consoleProxyAddr,
+		Handler: &proxy,
+	}
+
+	// c.log.Info("starting console proxy",
+	// 	zap.String("proxy.address", consoleProxyAddr),
+	// 	zap.String("address", c.consoleURL),
+	// )
+	return c.s.ListenAndServe()
+}
+
+func (c *consoleProxy) Stop() error {
+	return c.s.Shutdown(context.Background())
+}
+
+func (c *consoleProxy) GetBrowserURL() string {
+	return fmt.Sprintf("http://localhost:%v", c.port)
+}
+
+func startService() (startServiceResponse, error) {
+	var status startServiceResponse
+
+	cfg, err := wallet.LoadConfig(rootPath)
+	if err != nil {
+		return status, err
+	}
+
+	log, err := zap.NewProduction()
+	if err != nil {
+		return status, err
+	}
+
+	srv, err := wallet.NewService(log, cfg, rootPath)
+	if err != nil {
+		return status, err
+	}
+
+	err = srv.Start()
+	if err != nil && err != http.ErrServerClosed {
+		return status, err
+	} else {
+		status.Status = true
+	}
+
+	var cproxy *consoleProxy
+	cproxy = newConsoleProxy(log, cfg.Console.LocalPort, cfg.Console.URL, cfg.Nodes.Hosts[0], "")
+	err = cproxy.Start()
+	if err != nil {
+		return status, err
+	}
+
+	return status, nil
 }

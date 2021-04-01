@@ -162,6 +162,7 @@ let index = {
         if (message.PathExists) {
             document.getElementById("service-status-conf-ok").style.display = "block";
             document.getElementById("service-status-conf-ok-path").innerHTML = message.path;
+            document.getElementById("service-status-conf-ok-content").innerHTML = JSON.stringify(message.Config, null, 2);
         } else {
             document.getElementById("service-status-conf-nok").style.display = "block";
         }
@@ -198,8 +199,12 @@ let index = {
         });
         if (status) {
             document.getElementById("service-status-ok").style.display = "block";
+            document.getElementById("service-status-pane-ok").style.display = "block";
+            document.getElementById("service-status-start-service").style.display = "none";
         } else {
             document.getElementById("service-status-nok").style.display = "block";
+            document.getElementById("service-status-pane-nok").style.display = "block";
+            document.getElementById("service-status-start-service").style.display = "block";
         }
     },
     logout: function() {

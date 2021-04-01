@@ -9,6 +9,10 @@ body,
     height: 100%;
 }
 
+h1 {
+    text-transform: uppercase;
+}
+
 .left {
     color: #fff;
     float: left;
@@ -95,6 +99,7 @@ select {
 
 .menu-item {
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 #top-infos {
@@ -187,4 +192,8 @@ div.darkTable {
 
 .circle-unknown {
     fill: grey;
+}
+
+.service-status-container {
+    display: inline-block;
 }
