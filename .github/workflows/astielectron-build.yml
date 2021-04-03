@@ -36,6 +36,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: VegaWalletGUI-macosx-amd64.app.zip
+        path: .
       if: matrix.os == 'macos-latest' 
   publish:
     needs: [build]
@@ -51,8 +52,8 @@ jobs:
         path: VegaWalletGUI-windows-amd64.exe
     - uses: actions/download-artifact@v2
       with:
-        name: VegaWalletGUI-macosx-amd64.app
-        path: VegaWalletGUI-macosx-amd64.app
+        name: VegaWalletGUI-macosx-amd64.app.zip
+        path: VegaWalletGUI-macosx-amd64.app.zip
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
