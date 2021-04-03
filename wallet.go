@@ -13,9 +13,13 @@ import (
 	"code.vegaprotocol.io/go-wallet/fsutil"
 	"code.vegaprotocol.io/go-wallet/wallet"
 	"code.vegaprotocol.io/go-wallet/wallet/crypto"
+	"github.com/prometheus/common/log"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
+
+var srv *wallet.Service
+var cproxy *consoleProxy
 
 type createWalletRequest struct {
 	Owner      string `json:"owner"`
@@ -520,29 +524,56 @@ func startService() (startServiceResponse, error) {
 		return status, err
 	}
 
+	_, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
 	log, err := zap.NewProduction()
 	if err != nil {
 		return status, err
 	}
 
-	srv, err := wallet.NewService(log, cfg, rootPath)
+	srv, err = wallet.NewService(log, cfg, rootPath)
 	if err != nil {
 		return status, err
 	}
 
-	err = srv.Start()
-	if err != nil && err != http.ErrServerClosed {
+	go func() {
+		defer cancel()
+		err := srv.Start()
+		if err != nil && err != http.ErrServerClosed {
+			log.Error("error starting wallet http server", zap.Error(err))
+		}
+	}()
+
+	cproxy = newConsoleProxy(log, cfg.Console.LocalPort, cfg.Console.URL, cfg.Nodes.Hosts[0], "")
+	go func() {
+		defer cancel()
+		err := cproxy.Start()
+		if err != nil && err != http.ErrServerClosed {
+			log.Error("error starting console proxy server", zap.Error(err))
+		}
+	}()
+
+	status.Status = true
+	return status, nil
+}
+
+func stopService() (startServiceResponse, error) {
+	var status startServiceResponse
+	err := srv.Stop()
+	if err != nil {
 		return status, err
 	} else {
-		status.Status = true
+		log.Info("wallet http server stopped with success")
 	}
 
-	var cproxy *consoleProxy
-	cproxy = newConsoleProxy(log, cfg.Console.LocalPort, cfg.Console.URL, cfg.Nodes.Hosts[0], "")
-	err = cproxy.Start()
+	err = cproxy.Stop()
 	if err != nil {
 		return status, err
+	} else {
+		log.Info("console proxy server stopped with success")
 	}
 
+	status.Status = true
 	return status, nil
 }

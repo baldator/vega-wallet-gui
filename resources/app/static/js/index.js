@@ -167,23 +167,26 @@ let index = {
             document.getElementById("service-status-conf-nok").style.display = "block";
         }
     },
-    showPositions: async function(accounts) {
+    showAccounts: async function(accounts) {
+        console.log(accounts);
         document.getElementById("check-balance-result-data").innerHTML = "";
         document.getElementById("check-balance-result").style.display = "block";
         for (let i = 0; i < accounts.accounts.length; i++) {
-            let accountReadable = await wallet.getAssetValue(accounts.accounts[i].balance, accounts.accounts[i].asset);
-            let divRow = document.createElement("div");
-            divRow.classList.add("divTableRow");
-            let divName = document.createElement("div");
-            divName.classList.add("divTableCell");
-            divName.innerHTML = accountReadable.name;
-            divRow.appendChild(divName);
-            let divValue = document.createElement("div");
-            divValue.classList.add("divTableCell");
-            divValue.innerHTML = accountReadable.value;
-            divRow.appendChild(divValue);
+            if (accounts.accounts[i].type == "ACCOUNT_TYPE_GENERAL") {
+                let accountReadable = await wallet.getAssetValue(accounts.accounts[i].balance, accounts.accounts[i].asset);
+                let divRow = document.createElement("div");
+                divRow.classList.add("divTableRow");
+                let divName = document.createElement("div");
+                divName.classList.add("divTableCell");
+                divName.innerHTML = accountReadable.name;
+                divRow.appendChild(divName);
+                let divValue = document.createElement("div");
+                divValue.classList.add("divTableCell");
+                divValue.innerHTML = accountReadable.value;
+                divRow.appendChild(divValue);
 
-            document.getElementById("check-balance-result-data").appendChild(divRow);
+                document.getElementById("check-balance-result-data").appendChild(divRow);
+            }
         }
 
         if (accounts.accounts.length == 0) {
@@ -193,6 +196,47 @@ let index = {
             document.getElementById("check-balance-result-empty").style.display = "none";
         }
     },
+    showPositions: async function(positions) {
+        document.getElementById("check-balance-position-result-data").innerHTML = "";
+        document.getElementById("check-balance-position").style.display = "block";
+        for (let i = 0; i < positions.positions.length; i++) {
+            let market = await wallet.getMarketValue(positions.positions[i].marketId);
+            let divRow = document.createElement("div");
+            divRow.classList.add("divTableRow");
+            let marketIdRow = document.createElement("div");
+            marketIdRow.classList.add("divTableCell");
+            if (market != null) {
+                marketIdRow.innerHTML = market.tradableInstrument.instrument.name;
+            }
+            divRow.appendChild(marketIdRow);
+            let divOpenVolume = document.createElement("div");
+            divOpenVolume.classList.add("divTableCell");
+            divOpenVolume.innerHTML = positions.positions[i].openVolume;
+            divRow.appendChild(divOpenVolume);
+            let divRealisedPnl = document.createElement("div");
+            divRealisedPnl.classList.add("divTableCell");
+            divRealisedPnl.innerHTML = positions.positions[i].realisedPnl / (10 ** market.decimalPlaces);
+            divRow.appendChild(divRealisedPnl);
+            let divUnrealisedPnl = document.createElement("div");
+            divUnrealisedPnl.classList.add("divTableCell");
+            divUnrealisedPnl.innerHTML = positions.positions[i].unrealisedPnl / (10 ** market.decimalPlaces);
+            divRow.appendChild(divUnrealisedPnl);
+            let divAverageEntryPrice = document.createElement("div");
+            divAverageEntryPrice.classList.add("divTableCell");
+            divAverageEntryPrice.innerHTML = positions.positions[i].averageEntryPrice / (10 ** market.decimalPlaces);
+            divRow.appendChild(divAverageEntryPrice);
+
+            document.getElementById("check-balance-position-result-data").appendChild(divRow);
+        }
+
+        if (positions.positions.length == 0) {
+            document.getElementById("check-balance-position").style.display = "none";
+            document.getElementById("check-balance-position-result-empty").style.display = "block";
+        } else {
+            document.getElementById("check-balance-position-result-empty").style.display = "none";
+        }
+
+    },
     updateServiceStatus: function(status) {
         [].forEach.call(document.querySelectorAll('.service-status'), function(el) {
             el.style.display = 'none';
@@ -201,10 +245,12 @@ let index = {
             document.getElementById("service-status-ok").style.display = "block";
             document.getElementById("service-status-pane-ok").style.display = "block";
             document.getElementById("service-status-start-service").style.display = "none";
+            document.getElementById("service-status-stop-service").style.display = "block";
         } else {
             document.getElementById("service-status-nok").style.display = "block";
             document.getElementById("service-status-pane-nok").style.display = "block";
             document.getElementById("service-status-start-service").style.display = "block";
+            document.getElementById("service-status-stop-service").style.display = "none";
         }
     },
     logout: function() {

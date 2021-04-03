@@ -198,7 +198,6 @@ let wallet = {
         })
     },
     checkBalance: async function() {
-        asticode.loader.show();
         let pub = document.getElementById("check-balance-pk").value;
         if (pub == null || pub == "") {
             asticode.notifier.error("Public key is required");
@@ -207,8 +206,7 @@ let wallet = {
         let response = await fetch('https://lb.testnet.vega.xyz/parties/' + pub + '/accounts');
         const accounts = await response.json(); //extract JSON from the http response
 
-        index.showPositions(accounts);
-        asticode.loader.hide();
+        index.showAccounts(accounts);
     },
     getAssetValue: async function(balance, asset) {
         let assetsResp = await fetch('https://lb.testnet.vega.xyz/assets');
@@ -223,6 +221,28 @@ let wallet = {
             }
         }
         return null
+    },
+    getMarketValue: async function(marketID) {
+        let marketsResp = await fetch('https://lb.testnet.vega.xyz/markets');
+        const marketsVal = await marketsResp.json(); //extract JSON from the http response
+        for (let i = 0; i < marketsVal.markets.length; i++) {
+            if (marketsVal.markets[i].id == marketID) {
+
+                return marketsVal.markets[i]
+            }
+        }
+        return null
+    },
+    getPositions: async function() {
+        let pub = document.getElementById("check-balance-pk").value;
+        if (pub == null || pub == "") {
+            asticode.notifier.error("Public key is required");
+        }
+
+        let response = await fetch('https://lb.testnet.vega.xyz/parties/' + pub + '/positions');
+        const accounts = await response.json(); //extract JSON from the http response
+
+        index.showPositions(accounts);
     },
     getServiceStatus: async function() {
         url = "http://" + config.walletConfig.Host + ":" + config.walletConfig.Port + "/api/v1/status"
@@ -253,6 +273,28 @@ let wallet = {
                 return
             } else {
                 asticode.notifier.info("Service started successfully");
+            }
+
+        })
+    },
+    stopService: function() {
+        // Create message
+        let message = { "name": "stopService" };
+
+        // Send message
+        asticode.loader.show();
+        astilectron.sendMessage(message, function(message) {
+            // Init
+            asticode.loader.hide();
+
+            console.log(message);
+
+            // Check error
+            if (message.name === "error") {
+                asticode.notifier.error(message.payload);
+                return
+            } else {
+                asticode.notifier.info("Service stopped successfully");
             }
 
         })

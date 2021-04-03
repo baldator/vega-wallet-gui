@@ -63,7 +63,7 @@
             <div class="right-pane" id="check-balance" style="display:none">
                 <div>
                     <h1>Check balance</h1>
-                    <select name="uname" id="check-balance-pk" onchange="wallet.checkBalance()" required>
+                    <select name="uname" id="check-balance-pk" onchange="wallet.checkBalance(); wallet.getPositions();" required>
                     <option value="" disabled selected>Select a public key</option>
                 </select>
                 </div>
@@ -80,21 +80,27 @@
                         </div>
                     </div>
                 </div>
+                <div id="check-balance-result-empty">
+                    The publick key has no associated account.
+                </div>
                 <h2>Positions</h2>
                 <div id="check-balance-position" style="display: none;">
                     <div class="divTable darkTable">
                         <div class="divTableHeading">
                             <div class="divTableRow">
-                                <div class="divTableHead">Asset</div>
-                                <div class="divTableHead">Available</div>
+                                <div class="divTableHead">Market</div>
+                                <div class="divTableHead">Open Volume</div>
+                                <div class="divTableHead">Realised PNL</div>
+                                <div class="divTableHead">Unrealised PNL</div>
+                                <div class="divTableHead">Average entry price</div>
                             </div>
                         </div>
                         <div class="divTableBody" id="check-balance-position-result-data" role="rowgroup">
                         </div>
                     </div>
                 </div>
-                <div id="check-balance-result-empty">
-                    The publick key has no associated account.
+                <div id="check-balance-position-result-empty">
+                    The publick key has no associated positions.
                 </div>
             </div>
             <div class="right-pane" id="service-status" style="display:none">
@@ -114,9 +120,11 @@
                     <br>
                     <div id="service-status-start-service">
                         <button type="submit" onclick="wallet.startService()">Start service</button>
-                        <hr/>
                     </div>
-
+                    <div id="service-status-stop-service" style="display: none;">
+                        <button type="submit" onclick="wallet.stopService()">Stop service</button>
+                    </div>
+                    <hr/>
                     <div id="service-status-conf-ok" class="configuration-status" style="display: none;">
                         Configuration file exists. <br/> Configuration file path: <span id="service-status-conf-ok-path"></span>
 
