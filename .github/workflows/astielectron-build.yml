@@ -31,7 +31,7 @@ jobs:
         path: output/windows-amd64/
       if: matrix.os == 'windows-latest' 
     - name: Zip Folder
-      run: zip -r VegaWalletGUI-macosx-amd64.app.zip . -i output/darwin-amd64/VegaWalletGUI-macosx-amd64.app/
+      run: zip -r VegaWalletGUI-macosx-amd64.app.zip . -i "output/darwin-amd64/VegaWalletGUI-macosx-amd64.app/*"
       if: matrix.os == 'macos-latest' 
     - uses: actions/upload-artifact@v2
       with:
@@ -63,4 +63,4 @@ jobs:
         files: |
           VegaWalletGUI-linux-amd64
           VegaWalletGUI-windows-amd64.exe
-          VegaWalletGUI-macosx-amd64.app
+          VegaWalletGUI-macosx-amd64.app.zip
