@@ -30,13 +30,13 @@ jobs:
         name: VegaWalletGUI-windows-amd64.exe
         path: output/windows-amd64/
       if: matrix.os == 'windows-latest' 
-    - uses: montudor/action-zip@v0.1.1
-      with:
-        args: zip -qq -r VegaWalletGUI-macosx-amd64.app.zip output/darwin-amd64/VegaWalletGUI-macosx-amd64.app
+    - name: Zip Folder
+      run: zip -r VegaWalletGUI-macosx-amd64.app.zip . -i "output/darwin-amd64/VegaWalletGUI-macosx-amd64.app/*"
       if: matrix.os == 'macos-latest' 
     - uses: actions/upload-artifact@v2
       with:
         name: VegaWalletGUI-macosx-amd64.app.zip
+        path: .
       if: matrix.os == 'macos-latest' 
   publish:
     needs: [build]
@@ -52,8 +52,8 @@ jobs:
         path: VegaWalletGUI-windows-amd64.exe
     - uses: actions/download-artifact@v2
       with:
-        name: VegaWalletGUI-macosx-amd64.app
-        path: VegaWalletGUI-macosx-amd64.app
+        name: VegaWalletGUI-macosx-amd64.app.zip
+        path: VegaWalletGUI-macosx-amd64.app.zip
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -63,4 +63,4 @@ jobs:
         files: |
           VegaWalletGUI-linux-amd64
           VegaWalletGUI-windows-amd64.exe
-          VegaWalletGUI-macosx-amd64.app
+          VegaWalletGUI-macosx-amd64.app.zip
