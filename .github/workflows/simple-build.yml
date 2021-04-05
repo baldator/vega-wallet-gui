@@ -1,0 +1,43 @@
+on: [push, pull_request]
+name: Build
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Get astilectron
+      run: go get -u github.com/asticode/go-astilectron
+    - name: Get astilectron bundler
+      run: go get -u github.com/asticode/go-astilectron-bundler/...
+    - name: build
+      run: astilectron-bundler -mwl
+    - uses: actions/upload-artifact@v2
+      with:
+        name: VegaWalletGUI-linux-amd64
+        path: output/linux-amd64/
+    - uses: actions/upload-artifact@v2
+      with:
+        name: VegaWalletGUI-windows-amd64.exe
+        path: output/windows-amd64/
+    - uses: montudor/action-zip@v0.1.1
+      with:
+        args: zip -qq -r output/VegaWalletGUI-macosx-amd64.app.zip output/darwin-amd64/VegaWalletGUI-macosx-amd64.app
+    - uses: actions/upload-artifact@v2
+      with:
+        name: VegaWalletGUI-macosx-amd64.app.zip
+        path: output/
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "0.1.0"
+        prerelease: true
+        title: "Vega Wallet GUI Snapshot"
+        files: |
+          output/linux-amd64/VegaWalletGUI-linux-amd64
+          output/windows-amd64/VegaWalletGUI-windows-amd64.exe
+          output/VegaWalletGUI-macosx-amd64.app.zip
