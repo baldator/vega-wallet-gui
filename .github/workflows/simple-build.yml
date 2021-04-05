@@ -15,7 +15,7 @@ jobs:
     - name: Get astilectron bundler
       run: go get -u github.com/asticode/go-astilectron-bundler/...
     - name: build
-      run: astilectron-bundler -mwl
+      run: astilectron-bundler -d -w -l
     - uses: actions/upload-artifact@v2
       with:
         name: VegaWalletGUI-linux-amd64
