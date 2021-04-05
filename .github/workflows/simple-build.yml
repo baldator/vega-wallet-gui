@@ -24,11 +24,9 @@ jobs:
       with:
         name: VegaWalletGUI-windows-amd64.exe
         path: output/windows-amd64/
-    - name: check output
-      run: ls -la "output/darwin-amd64/Vega Wallet GUI.app/"
     - uses: montudor/action-zip@v0.1.1
       with:
-        args: zip -qq -r VegaWalletGUI-macosx-amd64.app.zip "output/darwin-amd64/Vega Wallet GUI.app/*"
+        args: zip -qq -r VegaWalletGUI-macosx-amd64.app.zip "output/darwin-amd64/Vega Wallet GUI.app"
     - uses: actions/upload-artifact@v2
       with:
         name: VegaWalletGUI-macosx-amd64.app.zip
