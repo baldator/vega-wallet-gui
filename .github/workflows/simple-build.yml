@@ -18,11 +18,11 @@ jobs:
       run: astilectron-bundler -d -w -l
     - uses: actions/upload-artifact@v2
       with:
-        name: VegaWalletGUI-linux-amd64
+        name: "Vega Wallet GUI"
         path: output/linux-amd64/
     - uses: actions/upload-artifact@v2
       with:
-        name: VegaWalletGUI-windows-amd64.exe
+        name: "Vega Wallet GUI.exe"
         path: output/windows-amd64/
     - uses: montudor/action-zip@v0.1.1
       with:
@@ -38,6 +38,6 @@ jobs:
         prerelease: true
         title: "Vega Wallet GUI Snapshot"
         files: |
-          output/linux-amd64/VegaWalletGUI-linux-amd64
-          output/windows-amd64/VegaWalletGUI-windows-amd64.exe
+          "output/linux-amd64/Vega Wallet GUI"
+          "output/windows-amd64/Vega Wallet GUI.exe"
           VegaWalletGUI-macosx-amd64.app.zip
