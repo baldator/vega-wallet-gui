@@ -24,13 +24,13 @@ jobs:
       with:
         name: "Vega Wallet GUI.exe"
         path: output/windows-amd64/
+    - name: move Linux artifact to root
+      run: mv "output/linux-amd64/Vega Wallet GUI" "VegaWalletGUI-linux-amd64"
+    - name: move Windows artifact to root
+      run: mv "output/windows-amd64/Vega Wallet GUI.exe" "VegaWalletGUI-Windows-amd64.exe"
     - uses: montudor/action-zip@v0.1.1
       with:
         args: zip -qq -r VegaWalletGUI-macosx-amd64.app.zip "output/darwin-amd64/Vega Wallet GUI.app"
-    - uses: actions/upload-artifact@v2
-      with:
-        name: VegaWalletGUI-macosx-amd64.app.zip
-        path: .
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -38,6 +38,6 @@ jobs:
         prerelease: true
         title: "Vega Wallet GUI Snapshot"
         files: |
-          "output/linux-amd64/Vega Wallet GUI"
-          "output/windows-amd64/Vega Wallet GUI.exe"
+          VegaWalletGUI-linux-amd64
+          VegaWalletGUI-Windows-amd64.exe
           VegaWalletGUI-macosx-amd64.app.zip
