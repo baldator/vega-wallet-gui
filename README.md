@@ -1,5 +1,5 @@
 # Vega wallet GUI
-Multiplatform visual tool to ease the usage of Vega wallet. 
+Multiplatform visual tool to simplify the usage of Vega wallet. 
 It is a wrapper for the [official Vega wallet](https://github.com/vegaprotocol/go-wallet/)
 The application is written in Golang and takes advantage of astielectron.
 ## Install
